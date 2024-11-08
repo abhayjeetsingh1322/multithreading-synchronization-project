@@ -40,3 +40,17 @@ This project focuses on understanding how to create threads and use locks in C. 
   lock();
   sum += array[i];
   unlock();
+
+### Experiment 3: Optimized Locking
+
+**File**: `parallel3.c`
+
+In this experiment, we optimize the locking mechanism to minimize lock/unlock overhead. Instead of locking for every addition, each thread calculates a **partial sum** independently and then uses a single lock operation to update the shared global sum.
+
+Each thread computes a partial sum of its assigned portion of the array **without any locks**:
+   ```c
+   int partial_sum = 0;
+   for (i = start; i < end; i++) {
+       partial_sum += array[i];
+   }
+
